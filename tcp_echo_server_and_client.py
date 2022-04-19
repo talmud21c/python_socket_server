@@ -1,6 +1,7 @@
 # Client and server for tcp echo.
 import sys
 from socket import *
+from _thread import *
 
 # ECHO_PORT 기본 포트
 ECHO_PORT = 9190
@@ -73,10 +74,10 @@ def server():
     print('tcp echo server ready')
 
     # 연결 대기
-    print('wait for client ')
+    print('wait for client... ')
     c_sock, addr = s.accept()
 
-    print('connected from {}:{}'.format(addr[0], addr[1]))
+    print('connected to {}:{}'.format(addr[0], addr[1]))
 
     isRunning = True
     # 루프 돌면서 클라이언트로 들어온 데이터 그대로 재 전송
@@ -84,7 +85,7 @@ def server():
         readBuf = c_sock.recv(BUFSIZE)
         if len(readBuf) == 0:
             break
-        print('read data {}, length {}'.format(readBuf, len(readBuf)))
+        print('read data {}, length {}'.format(readBuf.decode('utf-8'), len(readBuf)))
         c_sock.send(readBuf)
     print('disconnected ')
     c_sock.close()
