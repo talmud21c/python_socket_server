@@ -24,6 +24,7 @@ def threaded_client(connection):
         connection.sendall(str.encode(reply))
     connection.close()
 
+
 while True:
     Client, address = ServerSocket.accept()
     print('Connected to: ' + address[0] + ':' + str(address[1]))
